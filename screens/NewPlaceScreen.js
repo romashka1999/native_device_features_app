@@ -10,13 +10,18 @@ const NewPlaceScreen = ({navigation}) => {
     const dispatch = useDispatch();
 
     const [title, setTitle] = useState('');
+    const [image, setImage] = useState();
 
     const titleChangeHandler = text => {
         setTitle(text);
     }
 
+    const imageTakenHandler = imagePath => {
+        setImage(imagePath);
+    }
+
     const savePlaceHandler = () => {
-        dispatch(addPlace(title));
+        dispatch(addPlace(title, image));
         navigation.goBack();
     }
 
@@ -28,7 +33,8 @@ const NewPlaceScreen = ({navigation}) => {
                     style={styles.textInput}
                     value={title}
                     onChangeText={titleChangeHandler}/>
-                <ImagePicker />
+                <ImagePicker 
+                    onImageTaken={imageTakenHandler}/>
                 <Button 
                     title="Save Place"
                     color={Colors.primary}
